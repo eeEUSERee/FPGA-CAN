@@ -22,7 +22,7 @@ jobs:
     - name: Run Verilator build
       run: |
         verilator -CFLAGS -fcoroutines \
-                  --cc --main --build --exe --timing --trace --threads 8 \
+                  --cc --main --build --exe --timing --trace \
                   -Wno-fatal \
                   --top-module tb_can_top \
                   SIM/*.v RTL/*.v
