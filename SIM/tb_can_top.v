@@ -14,7 +14,10 @@ module tb_can_top();
 // -----------------------------------------------------------------------------------------------------------------------------
 // simulation control
 // -----------------------------------------------------------------------------------------------------------------------------
-initial $dumpvars(0, tb_can_top);
+initial begin
+	$dumpfile("can_trace.vcd"); // for GTKWave or similar viewer
+	$dumpvars(0, tb_can_top);
+end
 initial #10000000000 $finish;              // simulation for 10ms
 
 
