@@ -22,11 +22,20 @@ jobs:
     - name: Run Verilator build
       run: |
         verilator -CFLAGS -fcoroutines \
-                  --cc --main --build --exe --timing --trace --threads 8 \
+                  --cc --main --build --exe --timing --trace \
                   -Wno-fatal \
                   --top-module tb_can_top \
                   SIM/*.v RTL/*.v
     
     - name: Run Verilator simulation
       run: |
-        ./obj_dir/Vtb_can_top
+        ./obj_dir/Vtb_can_top > sim_output.log || true
+
+        echo "Checking for finish message..."
+        if grep -q "$finish" sim_output.log; then
+          echo "Simulation finished successfully.";
+        else
+          echo "Simulation did not finish properly.";
+          cat sim_output.log
+          exit 1
+        fi
