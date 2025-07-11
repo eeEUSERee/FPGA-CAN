@@ -6,6 +6,7 @@ SRC_RTL        := $(wildcard RTL/*.v)
 SRC_SIM        := $(wildcard SIM/*.v)
 VERILATOR_OPTS := -CFLAGS -fcoroutines --cc --main --build --exe --timing --trace -Wno-fatal --top-module $(TOP_MODULE)
 TARGET         := sim_$(TOP_MODULE)
+TRACE_FILE     := can_trace.vcd
 
 # === Default target ===
 all: $(TARGET)
@@ -18,7 +19,7 @@ $(TARGET):
 run: $(TARGET)
 	./obj_dir/V$(TOP_MODULE)
 
-wave: 
+trace: 
 	gtkwave can_trace.vcd &
 
 # === Clean ===
