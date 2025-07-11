@@ -19,10 +19,14 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y verilator make g++ pkg-config
 
-    - name: Run Verilator simulation
+    - name: Run Verilator build
       run: |
         verilator -CFLAGS -fcoroutines \
                   --cc --main --build --exe --timing --trace --threads 8 \
                   -Wno-fatal \
                   --top-module tb_can_top \
                   SIM/*.v RTL/*.v
+    
+    - name: Run Verilator simulation
+      run: |
+        ./obj_dir/Vtb_can_top
